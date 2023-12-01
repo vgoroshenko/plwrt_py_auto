@@ -1,4 +1,4 @@
-## Getting Started
+## Getting Started Playwright tests the Internet project
 
 Install your dependencies:
 
@@ -17,7 +17,8 @@ Load the page you want to see in your browser:
     http://localhost:5000/
 
 Start tests:
-    
+
+    pytest -s -v --tb=line  --browser-channel chrome --headed -n 5
     pytest -s -v --tb=line --screenshot=on --browser webkit --browser firefox --browser chromium -n 5
     pytest -s -v --tb=line --headed --screenshot=on
 
