@@ -18,9 +18,9 @@ class DynamicContent(BasePage):
         assert correct_text in text, f'should be {correct_text}, but "{text}"'
 
     def should_be_changed_content_after_change(self):
-        text_elements = self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
+        text_elements = self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
         self.change_content()
-        elements2 = [i.inner_text() for i in self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)]
+        elements2 = [i.inner_text() for i in self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)]
         flag = True
         for i in elements2:
             if i in text_elements:
@@ -28,10 +28,10 @@ class DynamicContent(BasePage):
         assert flag, 'should be changed text, but not'
 
     def should_be_not_changed_second_row_content(self):
-        elements = self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
+        elements = self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
         text = elements[0].inner_text()
         self.change_content()
-        elements = self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
+        elements = self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
         text_after = elements[0].inner_text()
         assert text == text_after, f'should be not changed text, but yes {text[0:10]} and {text_after[0:10]}'
 

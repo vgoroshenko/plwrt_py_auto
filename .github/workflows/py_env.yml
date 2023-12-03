@@ -5,31 +5,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Start containers
-        run: |
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      -  run: |
           sudo apt install make
           make pull
           docker-compose -f "docker-compose.yml" up -d
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.11"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          sudo apt install -y xvfb xserver-xephyr xauth
-          touch ~/.Xauthority
-          python -m pip install pytest-xvfb
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Ensure browsers are installed
+        run: playwright install
 
       - name: Test with pytest
         run: |
-          playwright install --with-deps
           pytest -s -v --tb=line --browser webkit --browser firefox --browser chromium -n 5 --alluredir=reports -q
 
       - name: Generate report
