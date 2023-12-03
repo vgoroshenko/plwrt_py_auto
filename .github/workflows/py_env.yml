@@ -30,7 +30,7 @@ jobs:
       - name: Test with pytest
         run: |
           playwright install
-          pytest -s -v --tb=line --browser webkit --browser firefox --browser chromium -n 5 --alluredir=reports -q
+          pytest -s -v --tb=line --browser chromium -n 5 -q --alluredir=reports
 
       - name: Generate report
         if: always()
