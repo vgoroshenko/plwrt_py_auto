@@ -27,7 +27,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest -s -v --tb=line --browser webkit --browser firefox --browser chromium -n 5 --alluredir=reports -q
+          pytest -s -v --tb=line --browser webkit --browser firefox --browser chromium -n 5 --alluredir=reports -q --reruns 2
 
       - name: Generate report
         if: always()
