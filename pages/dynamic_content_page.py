@@ -28,7 +28,7 @@ class DynamicContent(BasePage):
         assert flag, 'should be changed text, but not'
 
     def should_be_not_changed_second_row_content(self):
-        elements = [self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)]
+        elements = self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
         text = elements[0].inner_text()
         self.change_content()
         elements = self.page.query_selector_all(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS)
