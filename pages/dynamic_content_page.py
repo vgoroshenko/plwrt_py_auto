@@ -1,3 +1,5 @@
+import time
+
 from .base.base_page import BasePage
 from .locators import DynamicContentLocators, BasePageLocators
 
@@ -28,8 +30,8 @@ class DynamicContent(BasePage):
         assert flag, 'should be changed text, but not'
 
     def should_be_not_changed_second_row_content(self):
+        time.sleep(2)
         elements = self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS).all()
-        print(elements)
         text = elements[0].inner_text()
         self.change_content()
         elements = self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS).all()
