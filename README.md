@@ -1,4 +1,6 @@
+[![Test and Deploy result from Python](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/py_env.yml/badge.svg?branch=main)](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/py_env.yml)
 ## Getting Started Playwright tests the Internet project
+
 
 [Example application for writing automated acceptance tests](http://the-internet.herokuapp.com)
 

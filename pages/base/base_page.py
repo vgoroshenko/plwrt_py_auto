@@ -6,8 +6,8 @@ class BasePage:
     def __init__(self, page=Page, url=UrlLocators.MAIN_URL, timeout=4):
         self.page = page
         self.url = url
-        self.open()
         self.expect = expect
+        self.open()
 
     def open(self):
         self.page.goto(self.url)
