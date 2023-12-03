@@ -8,7 +8,8 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Page
 @pytest.fixture
 def browser_fixture():
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
+        browser = playwright.chromium.launch(headless=True, args=["--no-sandbox", "--disable-gpu"],
+                                             ignore_default_args=True)
         context = browser.new_context()
         page = context.new_page()
         yield page
@@ -77,4 +78,5 @@ def screenshot_on_step(request, page):
         allure.attach.file(screenshot_path,
                            name="Screenshot" + f' {time.asctime().split()[-2]}',
                            attachment_type=allure.attachment_type.TEXT and allure.attachment_type.PNG)
+
     request.addfinalizer(take_screenshot)
