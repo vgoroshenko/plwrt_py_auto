@@ -18,7 +18,7 @@ Load the page you want to see in your browser:
 
 Start tests:
 
-    pytest -s -v --tb=line  --browser-channel chrome --headed -n 5
+    pytest -s -v --tb=line  --browser-channel chrome --headed -n 5 -q --alluredir=reports
     pytest -s -v --tb=line --screenshot=on --browser webkit --browser firefox --browser chromium -n 5
     pytest -s -v --tb=line --headed --screenshot=on
 

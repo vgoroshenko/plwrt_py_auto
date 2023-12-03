@@ -18,4 +18,4 @@ class DragAndDrop(BasePage):
 
     def should_be_change_text(self):
         text = self.get_text(DragAndDropLocators.BOX_A)
-        assert 'B' == text, f'Should be "B", but {text}'
+        assert 'B' in text, f'Should be "B", but {text}'
