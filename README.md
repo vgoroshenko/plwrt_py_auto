@@ -1,14 +1,18 @@
 ## Getting Started Playwright tests the Internet project
 
+[Example application for writing automated acceptance tests](http://the-internet.herokuapp.com)
+
+[Link to Allure report after run tests](https://vgoroshenko.github.io/plwrt_py_auto)
+
 Install your dependencies:
 
     make pull
     python -m venv venv
     venv/Scripts/activate
     pip install -r requirements.txt
-    playwright install chrome
+    playwright install
 
-Start selenoid server:
+Start web server:
 
     docker-compose up -d
 
@@ -18,9 +22,9 @@ Load the page you want to see in your browser:
 
 Start tests:
 
-    pytest -s -v --tb=line  --browser-channel chrome --headed -n 5 -q --alluredir=reports
-    pytest -s -v --tb=line --screenshot=on --browser webkit --browser firefox --browser chromium -n 5
-    pytest -s -v --tb=line --headed --screenshot=on
+    pytest -s -v --tb=line -n 5 --alluredir=reports -q     
+    pytest -s -v --tb=line --browser webkit --browser firefox --browser chromium -n 5 --alluredir=reports -q  
+    pytest -s -v --tb=line --headed
 
 
 An example application that captures prominent and ugly functionality found on the web. Perfect for writing automated acceptance tests against.
