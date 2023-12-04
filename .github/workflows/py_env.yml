@@ -32,11 +32,10 @@ jobs:
         run: |
           sudo mkdir /allure
           release_url=$(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url')
-          curl -LJO $release_url
-          archive_name=$(ls | grep allure-framework-allure2)
-          sudo unzip $archive_name -d /allure
-          allure_folder=$(ls /allure)
-          export PATH=$PATH:/allure/$allure_folder/bin
+          archive_name=$(basename $release_url)
+          sudo wget https://github.com/allure-framework/allure2/releases/download/$archive_name/allure-$archive_name.tgz
+          sudo tar zxf allure-$archive_name.tgz -C /allure
+          export PATH="/allure/allure-$archive_name/bin:${PATH}"
           allure generate reports
 
       - name: Stop web server
