@@ -4,43 +4,42 @@ import os
 import time
 from playwright.sync_api import Playwright, sync_playwright, expect, Page
 
-
-@pytest.fixture
-def browser_fixture():
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True, args=["--no-sandbox", "--disable-gpu"],
-                                             ignore_default_args=True)
-        context = browser.new_context()
-        page = context.new_page()
-        yield page
-        page.close()
-        context.close()
-        browser.close()
-    # with sync_playwright() as p:
-    #     if request.param == 'chromium':
-    #         browser = p.chromium.launch()
-    #     elif request.param == 'firefox':
-    #         browser = p.firefox.launch()
-    #     elif request.param == 'webkit':
-    #         browser = p.webkit.launch()
-    #
-    #     context = browser.new_context()
-    #     page = context.new_page()
-    #
-    #     yield {'browser': browser, 'context': context, 'page': page}
-    #     page.close()
-    #     browser.close()
+# @pytest.fixture(scope="session", params=['chromium', 'firefox', 'webkit'])
+# def page(request):
+#     with sync_playwright() as p:
+#         browser_type = getattr(p, request.param)
+#         browser = browser_type.launch(headless=False, args=["--no-sandbox", "--disable-gpu"])
+#         context = browser.new_context()
+#         page = context.new_page()
+#         yield page
+#         browser.close()
 
 
-@pytest.fixture(scope="session")
-def browser_context_args(browser_context_args):
-    return {
+# @pytest.fixture(scope="session")
+# def browsers():
+#     with sync_playwright() as p:
+#
+#         browsers = {
+#             "chromium": p.chromium.launch(headless=False, args=["--no-sandbox", "--disable-gpu"]),
+#             "firefox": p.firefox.launch(headless=False, args=["--no-sandbox", "--disable-gpu"]),
+#             "webkit": p.webkit.launch(headless=False, args=["--no-sandbox", "--disable-gpu"])
+#         }
+#         yield browsers
+#         for browser in browsers.values():
+#             browser.close()
+#
+# @pytest.fixture(params=["chromium", "firefox", "webkit"])
+# def page(request, browsers):
+#     browser_type = request.param
+#     if browser_type not in browsers:
+#         raise ValueError(f"Invalid browser type: {browser_type}")
+#     browser = browsers[browser_type]
+#     context = browser.new_context()
+#     page = browser.new_page()
+#     yield page
+#     context.close()
+#     page.close()
 
-        "viewport": {
-            "width": 1920,
-            "height": 1080,
-        }
-    }
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
@@ -61,11 +60,6 @@ def pytest_runtest_makereport(item, call):
                 else:
                     print('Fail to take screen-shot')
                     return
-                # allure.attach(
-                #     page.screenshot(),
-                #     name='console log:',
-                #     attachment_type=allure.attachment_type.TEXT and allure.attachment_type.PNG
-                # )
         except Exception as e:
             print('Fail to take screen-shot: {}'.format(e))
 

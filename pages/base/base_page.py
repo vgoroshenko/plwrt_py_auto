@@ -3,7 +3,7 @@ from playwright.sync_api import expect, Page
 
 
 class BasePage:
-    def __init__(self, page=Page, url=UrlLocators.MAIN_URL, timeout=4):
+    def __init__(self, page, url=UrlLocators.MAIN_URL, timeout=4):
         self.page = page
         self.url = url
         self.expect = expect
