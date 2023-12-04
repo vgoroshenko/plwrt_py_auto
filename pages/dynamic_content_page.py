@@ -9,6 +9,7 @@ class DynamicContent(BasePage):
     def change_content(self):
         button = self.page.locator(DynamicContentLocators.CHANGE_CONTENT_BUTTON)
         button.click()
+        time.sleep(2)
 
     def go_to_page(self):
         link = self.page.locator(DynamicContentLocators.DYNAMIC_CONTENT_PAGE)
@@ -30,7 +31,7 @@ class DynamicContent(BasePage):
         assert flag, 'should be changed text, but not'
 
     def should_be_not_changed_second_row_content(self):
-        time.sleep(2)
+        time.sleep(1)
         elements = self.page.locator(DynamicContentLocators.ALL_TEXT_CONTENT_ELEMENTS).all()
         text = elements[0].inner_text()
         self.change_content()
