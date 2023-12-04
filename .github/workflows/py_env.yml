@@ -8,10 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Start containers
+      - name: Start web server
         run: |
-          sudo apt install make
-          make pull
           docker-compose -f "docker-compose.yml" up -d
 
       - name: Set up Python 3.11
@@ -38,10 +36,10 @@ jobs:
           export PATH="/allure/allure-2.17.2/bin:${PATH}"
           allure generate reports
 
-      - name: Stop containers
+      - name: Stop web server
         if: always()
         run: |
-          docker-compose -f "docker-compose.yml" down -rm
+          docker-compose -f "docker-compose.yml" down --rmi all
           make clean
 
       - name: Deploy report🚀
