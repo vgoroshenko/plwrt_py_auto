@@ -30,13 +30,12 @@ jobs:
       - name: Generate report
         if: always()
         run: |
-          sudo apt install curl jq
           sudo mkdir /allure
           release_url=$(sudo curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.tarball_url')
-          archive_name=$(basename $release_url)
+          archive_name=$(sudo basename $release_url)
           sudo curl -LJO $release_url
           sudo tar -zxvf $archive_name -C /allure
-          allure_dir=$(tar -tzf $archive_name | head -1 | cut -f1 -d'/')
+          allure_dir=$(sudo tar -tzf $archive_name | head -1 | cut -f1 -d'/')
           export PATH=$PATH:/allure/$allure_dir/bin
           allure generate reports
 
@@ -44,7 +43,6 @@ jobs:
         if: always()
         run: |
           docker-compose -f "docker-compose.yml" down --rmi all
-          make clean
 
       - name: Deploy report🚀
         if: always()
