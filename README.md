@@ -1,5 +1,5 @@
 [![Test and Deploy result from Python](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/py_env.yml/badge.svg?branch=main)](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/py_env.yml)
-## Getting Started Playwright tests the Internet project
+## Playwright Pytest Allure Page object model example 
 
 
 [Example application for writing automated acceptance tests](http://the-internet.herokuapp.com)
@@ -8,11 +8,10 @@
 
 Install your dependencies:
 
-    make pull
     python -m venv venv
     venv/Scripts/activate
     pip install -r requirements.txt
-    playwright install
+    playwright install --with-deps
 
 Start web server:
 
@@ -22,11 +21,13 @@ Load the page you want to see in your browser:
 
     http://localhost:5000/
 
-Start tests:
+Start tests (run parallel tests in 3 browser):
 
-    pytest -s -v --tb=line -n 5 --alluredir=reports -q     
-    pytest -s -v --tb=line --browser webkit --browser firefox --browser chromium -n 5 --alluredir=reports -q  
-    pytest -s -v --tb=line --headed
+    pytest
+
+See Allure report result:
+    
+    allure serve reports
 
 
 An example application that captures prominent and ugly functionality found on the web. Perfect for writing automated acceptance tests against.
