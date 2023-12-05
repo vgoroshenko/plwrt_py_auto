@@ -4,9 +4,6 @@ from playwright.sync_api import expect, Page, TimeoutError
 
 class BasePage:
     def __init__(self, page, url=UrlLocators.MAIN_URL):
-        timeout = 20000
-        page.set_default_navigation_timeout(timeout)
-        page.set_default_timeout(timeout)
         self.page = page
         self.url = url
         self.expect = expect
