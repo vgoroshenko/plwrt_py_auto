@@ -44,7 +44,7 @@ class ContextMenuLocators:
 
 
 class BasePageLocators:
-    PAGE_NAME = 'h3'
+    PAGE_NAME = '.example h3'
 
 
 class DisappearingElementsLocators:

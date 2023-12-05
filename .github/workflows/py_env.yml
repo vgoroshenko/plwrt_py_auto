@@ -31,8 +31,7 @@ jobs:
         if: always()
         run: |
           sudo mkdir /allure
-          release_url=$(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url')
-          archive_name=$(basename $release_url)
+          archive_name=$(basename $(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url'))
           sudo wget https://github.com/allure-framework/allure2/releases/download/$archive_name/allure-$archive_name.tgz
           sudo tar zxf allure-$archive_name.tgz -C /allure
           export PATH="/allure/allure-$archive_name/bin:${PATH}"
