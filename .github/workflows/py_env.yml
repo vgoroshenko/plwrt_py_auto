@@ -19,9 +19,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt install -y xvfb xserver-xephyr xauth
-          touch ~/.Xauthority
           python -m pip install --upgrade pip
+          sudo apt install -y xvfb xserver-xephyr xauth
+          touch ~/.Xauthority
           python -m pip install pytest-xvfb
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           playwright install --with-deps
