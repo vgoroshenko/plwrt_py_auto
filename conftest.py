@@ -8,11 +8,12 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Page
 # def page(request):
 #     with sync_playwright() as p:
 #         browser_type = getattr(p, request.param)
-#         browser = browser_type.launch(headless=False, args=["--no-sandbox", "--disable-gpu"])
+#         browser = browser_type.launch(headless=True, args=["--no-sandbox", "--disable-gpu"])
 #         context = browser.new_context()
 #         page = context.new_page()
 #         yield page
-#         browser.close()
+#         context.close()
+#         page.close()
 
 
 # @pytest.fixture(scope="session")
@@ -20,15 +21,16 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Page
 #     with sync_playwright() as p:
 #
 #         browsers = {
-#             "chromium": p.chromium.launch(headless=False, args=["--no-sandbox", "--disable-gpu"]),
-#             "firefox": p.firefox.launch(headless=False, args=["--no-sandbox", "--disable-gpu"]),
-#             "webkit": p.webkit.launch(headless=False, args=["--no-sandbox", "--disable-gpu"])
+#             "chromium": p.chromium.launch(headless=True),
+#             "firefox": p.firefox.launch(headless=True, args=["--no-sandbox", "--disable-gpu"]),
+#             "webkit": p.webkit.launch(headless=True, args=["--no-sandbox", "--disable-gpu"])
 #         }
 #         yield browsers
 #         for browser in browsers.values():
 #             browser.close()
 #
-# @pytest.fixture(params=["chromium", "firefox", "webkit"])
+# #@pytest.fixture(params=["chromium", "firefox", "webkit"])
+# @pytest.fixture(params=["chromium"])
 # def page(request, browsers):
 #     browser_type = request.param
 #     if browser_type not in browsers:

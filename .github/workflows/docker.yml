@@ -1,0 +1,44 @@
+name: Test and Deploy result from Docker
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start web server
+        run: |
+          docker-compose -f "docker-compose.yml" up -d
+
+      - name: Build playwrite Docker Image
+        run: |
+          docker build -t plywrt -f cicd/pl.Dockerfile .
+
+      - name: Build allure Docker Image
+        run: |
+          docker build -t allure -f cicd/pl.Dockerfile .
+
+      - name: Run test
+        run: |
+          docker run -v .:/app plywrt sh -c "pip install  -r requirements.txt; pytest"
+
+      - name: Run generate allure report
+        run: |
+          docker run -v .:/app allure sh -c "allure generate reports"
+
+      - name: Stop web server
+        if: always()
+        run: |
+          docker rm build --force
+          docker-compose -f "docker-compose.yml" down --rmi all
+          docker rmi temp/temp --force
+
+      - name: Deploy report🚀
+        if: always()
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          branch: gh-pages
+          folder: allure-report
+          clean: false
