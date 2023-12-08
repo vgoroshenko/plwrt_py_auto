@@ -239,5 +239,5 @@ class FormAuthenticationLocators:
 #     BUTTON_RETURN = "//a[@href='/status_codes']")
 #     STATUS_CODE_TEXT = 'p')
 class UrlLocators:
-    #MAIN_URL = "http://172.17.0.1:5000/"
-     MAIN_URL = "http://localhost:5000/"
+    MAIN_URL = "http://172.17.0.1:5000/"
+     #MAIN_URL = "http://localhost:5000/"
