@@ -5,7 +5,7 @@ on:
     - cron: '0 0 * * *' # Запускать каждый день в полночь
 
 jobs:
-  build Playwright:
+  build_Playwright:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +24,7 @@ jobs:
               docker push vgoroshenko/playwright:$archive_name
           fi
 
-  build Allure:
+  build_Allure:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

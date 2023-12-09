@@ -2,8 +2,7 @@ name: Test and Deploy result from Docker
 on:
   workflow_dispatch:
 jobs:
-  test build:
-    needs:
+  test_build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
