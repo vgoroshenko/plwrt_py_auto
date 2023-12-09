@@ -18,7 +18,7 @@ jobs:
 
       - name: Build allure Docker Image
         run: |
-          docker build -t allure -f cicd/pl.Dockerfile .
+          docker build -t allure .
 
       - name: Run test
         run: |
