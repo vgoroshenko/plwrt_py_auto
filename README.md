@@ -29,6 +29,11 @@ See Allure report result:
     
     allure serve reports
 
+Start tests using Docker test:
+
+    docker run -v .:/app vgoroshenko/playwright sh -c "pip install  -r requirements.txt; pytest"
+    docker run -v .:/app vgoroshenko/allure sh -c "allure generate reports"
+
 
 An example application that captures prominent and ugly functionality found on the web. Perfect for writing automated acceptance tests against.
 

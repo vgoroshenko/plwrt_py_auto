@@ -1,0 +1,43 @@
+name: Scheduled check new Allure, Playwright version
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Запускать каждый день в полночь
+
+jobs:
+  build Playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build playwrite Docker Image
+        run: |
+          playwright_version=$(basename $(curl -s "https://api.github.com/repos/microsoft/playwright-python/releases/latest" | jq -r '.zipball_url'))
+          playwright_version="${playwright_version:1}"
+          latest_tag=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/playwright/tags/?page_size=1" | jq -r '.results[0].name')
+          
+          if [[ $playwright_version == *$latest_tag ]]; then
+              echo "Версия Playwrigh актуальна $latest_tag"
+          else 
+              docker build -t vgoroshenko/playwright:$playwright_version -f cicd/pl.Dockerfile .
+              docker push vgoroshenko/playwright:$archive_name
+          fi
+
+  build Allure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build allure Docker Image
+        run: |
+          archive_name=$(basename $(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url'))
+          latest_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/allure/tags/?page_size=1" | jq -r '.results[0].name')
+          
+          f [[ $archive_name == *$latest_version ]]; then
+              echo "Версия Allure актуальна latest_version"
+          else 
+              docker build -t vgoroshenko/allure:$archive_name -f cicd/pl.Dockerfile .
+              docker push vgoroshenko/allure:$archive_name
+          fi

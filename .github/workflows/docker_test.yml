@@ -2,7 +2,8 @@ name: Test and Deploy result from Docker
 on:
   workflow_dispatch:
 jobs:
-  build:
+  test build:
+    needs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -12,21 +13,13 @@ jobs:
         run: |
           docker-compose -f "docker-compose.yml" up -d
 
-      - name: Build playwrite Docker Image
-        run: |
-          docker build -t plywrt -f cicd/pl.Dockerfile .
-
-      - name: Build allure Docker Image
-        run: |
-          docker build -t allure .
-
       - name: Run test
         run: |
-          docker run -v .:/app plywrt sh -c "pip install  -r requirements.txt; pytest"
+          docker run -v .:/app vgoroshenko/playwright sh -c "pip install  -r requirements.txt; pytest"
 
       - name: Run generate allure report
         run: |
-          docker run -v .:/app allure sh -c "allure generate reports"
+          docker run -v .:/app vgoroshenko/allure sh -c "allure generate reports"
 
       - name: Stop web server
         if: always()
