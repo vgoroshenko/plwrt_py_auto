@@ -31,11 +31,7 @@ jobs:
       - name: Stop web server
         if: always()
         run: |
-          docker rm plywrt --force
-          docker rm allure --force
           docker-compose -f "docker-compose.yml" down --rmi all
-          docker rmi plywrt --force
-          docker rmi allure --force
 
       - name: Deploy report🚀
         if: always()

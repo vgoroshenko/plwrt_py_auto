@@ -1,4 +1,6 @@
 FROM python:3.11-slim
+# Создаем рабочую директорию внутри контейнера
+WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y \
