@@ -27,7 +27,6 @@ jobs:
       - name: Run generate allure report
         run: |
           docker run -v .:/app allure sh -c "allure generate reports"
-          chmod -R 755 ./allure-report
 
       - name: Stop web server
         if: always()
