@@ -35,7 +35,7 @@ jobs:
           archive_name=$(basename $(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url'))
           latest_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/allure/tags/?page_size=1" | jq -r '.results[0].name')
           
-          f [[ $archive_name == *$latest_version ]]; then
+          if [[ $archive_name == *$latest_version ]]; then
               echo "Версия Allure актуальна latest_version"
           else 
               docker build -t vgoroshenko/allure:$archive_name -f cicd/pl.Dockerfile .
