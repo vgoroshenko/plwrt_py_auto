@@ -14,5 +14,5 @@ RUN mkdir /allure
 RUN wget https://github.com/allure-framework/allure2/releases/download/$allurever/allure-$allurever.tgz
 RUN tar zxf allure-$allurever.tgz -C /allure
 
-ENV PATH="/allure/allure-2.25.0/bin:${PATH}"
+ENV PATH="/allure/allure-$allurever/bin:${PATH}"
 
