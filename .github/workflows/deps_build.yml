@@ -15,13 +15,13 @@ jobs:
         run: |
           playwright_version=$(basename $(curl -s "https://api.github.com/repos/microsoft/playwright-python/releases/latest" | jq -r '.zipball_url'))
           playwright_version="${playwright_version:1}"
-          latest_tag=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/playwright/tags/?page_size=1" | jq -r '.results[0].name')
+          latest_docker_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/playwright/tags/?page_size=1" | jq -r '.results[0].name')
           
-          if [[ $playwright_version == *$latest_tag ]]; then
-              echo "Версия Playwrigh актуальна $latest_tag"
+          if [[ $playwright_version == *$latest_docker_version ]]; then
+              echo "Версия Playwrigh актуальна $latest_docker_version"
           else 
               docker build -t vgoroshenko/playwright:$playwright_version -f cicd/pl.Dockerfile .
-              docker push vgoroshenko/playwright:$archive_name
+              docker push vgoroshenko/playwright:$playwright_version
           fi
 
   build_Allure:
@@ -32,12 +32,13 @@ jobs:
 
       - name: Build allure Docker Image
         run: |
-          archive_name=$(basename $(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url'))
-          latest_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/allure/tags/?page_size=1" | jq -r '.results[0].name')
-          sed -i "s/ALLUREVER/$archive_name/g" Dockerfile
-          if [[ $archive_name == *$latest_version ]]; then
-              echo "Версия Allure актуальна latest_version"
-          else 
-              docker build -t vgoroshenko/allure:$archive_name .
-              docker push vgoroshenko/allure:$archive_name
+          allure_version=$(basename $(curl -s "https://api.github.com/repos/allure-framework/allure2/releases/latest" | jq -r '.zipball_url'))
+          latest_docker_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/allure/tags/?page_size=1" | jq -r '.results[0].name')          
+                    
+          if [[ $allure_version == *$latest_docker_version ]]; then
+              echo "Версия Allure актуальна $latest_docker_version"
+          else
+              sed -i "s/ALLUREVER/$allure_version/g" Dockerfile
+              docker build -t vgoroshenko/allure:$allure_version .
+              docker push vgoroshenko/allure:$allure_version
           fi
