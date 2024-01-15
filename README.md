@@ -1,4 +1,8 @@
 [![Test and Deploy result from Python](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/py_env.yml/badge.svg?branch=main)](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/py_env.yml)
+
+[![Test and Deploy result from Docker](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/docker_test.yml/badge.svg)](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/docker_test.yml)
+
+[![Build and push latest Playwright, Allure docker image](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/deps_build.yml/badge.svg)](https://github.com/vgoroshenko/plwrt_py_auto/actions/workflows/deps_build.yml)
 ## Playwright Pytest Allure Page object model example 
 
 
