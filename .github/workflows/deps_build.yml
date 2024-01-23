@@ -28,6 +28,8 @@ jobs:
           else 
               docker build -t vgoroshenko/playwright:$playwright_version -f cicd/pl.Dockerfile .
               docker push vgoroshenko/playwright:$playwright_version
+              docker tag vgoroshenko/playwright:$playwright_version vgoroshenko/playwright:latest
+              docker push vgoroshenko/playwright:latest
           fi
 
   build_Allure:
@@ -53,4 +55,6 @@ jobs:
               sed -i "s/ALLUREVER/$allure_version/g" Dockerfile
               docker build -t vgoroshenko/allure:$allure_version .
               docker push vgoroshenko/allure:$allure_version
+              docker tag vgoroshenko/allure:$allure_version vgoroshenko/allure:latest
+              docker push vgoroshenko/allure:latest
           fi
