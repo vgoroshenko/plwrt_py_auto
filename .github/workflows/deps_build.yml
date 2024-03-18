@@ -21,7 +21,7 @@ jobs:
         run: |
           playwright_version=$(basename $(curl -s "https://api.github.com/repos/microsoft/playwright-python/releases/latest" | jq -r '.zipball_url'))
           playwright_version="${playwright_version:1}"
-          latest_docker_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/playwright/tags/?page_size=1" | jq -r '.results[0].name')
+          latest_docker_version=$(curl -s "https://hub.docker.com/v2/repositories/vgoroshenko/playwright/tags/?page_size=2" | jq -r '.results[0].name')
           
           if [[ $playwright_version == *$latest_docker_version ]]; then
               echo "Версия Playwrigh актуальна $latest_docker_version"
